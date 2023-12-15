@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JSeparator;
@@ -84,7 +85,21 @@ public class UpdateProductPanel extends JPanel {
 		updateButton.setIcon(new ImageIcon(UpdateProductPanel.class.getResource("/image/update 30.png")));
 		updateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+				
+				try {
+					Connection connect = ConnectDatabase.getConnection();
+					Statement st = connect.createStatement();
+					String sql = "UPDATE product SET productId=\"" + productIdTextField.getText() + "\", productName= \"" +
+					productNameTextField.getText() + "\", productPrice= \"" + productPriceTextField.getText() 
+					+ "\" WHERE (productId=\"" + searchProductIdTextField.getText() + "\")";
+					st.executeUpdate(sql);
+				    
+					JOptionPane.showMessageDialog(null, "Update completed...");
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
+			}  
 		});
 		updateButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		updateButton.setBounds(492, 488, 130, 29);
@@ -112,7 +127,7 @@ public class UpdateProductPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				String productId = searchProductIdTextField.getText();
-				try {
+				try { 
 					Connection connect = ConnectDatabase.getConnection();
 					Statement st = connect.createStatement();
 					String sql = "SELECT * FROM product WHERE productId= \"" + productId + "\"";

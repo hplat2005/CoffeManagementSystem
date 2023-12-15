@@ -46,9 +46,10 @@ public class ShowProductsPanel extends JPanel {
 	JButton resetButton = new JButton("RESET");
 
 	public ShowProductsPanel() {
+		
+		// không cần quan tâm đến phần này -- phần trang trí
 		this.setBounds(170,1,908,704);
 		setLayout(null);
-		
 		JLabel lblShowProducts = new JLabel("SHOW PRODUCTS");
 		lblShowProducts.setBounds(0, 1, 869, 89);
 		lblShowProducts.setOpaque(true);
@@ -57,6 +58,7 @@ public class ShowProductsPanel extends JPanel {
 		lblShowProducts.setFont(new Font("Space Age", Font.BOLD, 18));
 		lblShowProducts.setBackground(Color.DARK_GRAY);
 		add(lblShowProducts);
+		
 		
 		JButton closeButton = new JButton("CLOSE");
 		closeButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/close 30.png")));
@@ -70,6 +72,7 @@ public class ShowProductsPanel extends JPanel {
 		add(closeButton);
 		
 		
+		
 	    //database
 		try {
 			Connection connect = ConnectDatabase.getConnection();
@@ -78,7 +81,7 @@ public class ShowProductsPanel extends JPanel {
 			ResultSet rs =st.executeQuery(sql);
 			ResultSetMetaData rsmd = rs.getMetaData();
 			DefaultTableModel model = (DefaultTableModel)view.ShowProductsPanel.table.getModel();
-			
+			 
 			int cols = rsmd.getColumnCount();
 			String[] colName = new String[cols];
 			for(int i=0; i<cols; i++) {
@@ -98,10 +101,10 @@ public class ShowProductsPanel extends JPanel {
 		    st.close();
 		    
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
-		 JScrollPane sp = new JScrollPane(this);
+		 
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 129, 824, 349);
@@ -109,9 +112,10 @@ public class ShowProductsPanel extends JPanel {
 		
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		scrollPane.setViewportView(table);
+		
+		
+		
 		resetButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/icons8-reset-30 (2).png")));
-		
-		
 		resetButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -125,12 +129,12 @@ public class ShowProductsPanel extends JPanel {
 		showButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/show 30.png")));
 		
 		
-		
+		 
 		showButton.setForeground(new Color(0, 0, 0));
 		showButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				try {
+				try { 
 					showButton.setVisible(false);
 					Connection connect = ConnectDatabase.getConnection();
 					Statement st = connect.createStatement();
@@ -154,10 +158,10 @@ public class ShowProductsPanel extends JPanel {
 						String[] row = {productId, productName, productPrice};
 						model.addRow(row);
 						}
-//					ConnectDatabase.closeConnection(connect);
-//					st.close();
+					ConnectDatabase.closeConnection(connect);
+					st.close();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}

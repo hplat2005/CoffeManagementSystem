@@ -133,7 +133,7 @@ public class DeleteProductPanel extends JPanel {
 						 Statement st = connect.createStatement();
 						 String sql = "DELETE FROM product WHERE productId= \"" + productId + "\""; 
 						 st.executeUpdate(sql);
-						 
+						
 						 
 //						 setVisible(false);
 //						 new DeleteProductPanel().setVisible(true);

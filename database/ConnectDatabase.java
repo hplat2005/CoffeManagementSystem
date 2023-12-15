@@ -26,7 +26,8 @@ public class ConnectDatabase {
 		     st.executeUpdate(sql);
 //		     JOptionPane.showMessageDialog(null, "Database Connected");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Database Connection Error" + e);
+			
+		JOptionPane.showMessageDialog(null, "Database Connection Error" + e);
 			
 		}
 		
@@ -43,9 +44,5 @@ public class ConnectDatabase {
 			}
 		}
 	};
-	public ConnectDatabase() {
-		
-	}
 	
-
 }

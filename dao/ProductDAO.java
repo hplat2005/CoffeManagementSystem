@@ -78,8 +78,8 @@ public class ProductDAO implements DAOInterface<Product>{
 		return null;
 	}
 
-	@Override
-	public Product selectById(Product t) {
+	
+//	public Product selectById(Product t) {
 //		Product product = null;
 //		try {
 //			Connection connect = ConnectDatabase.getConnection();
@@ -110,11 +110,16 @@ public class ProductDAO implements DAOInterface<Product>{
 //		}
 //		
 //		return selectStaffById;
-		return null;
-	}
+//		return null;
+//	}
 
 	@Override
 	public ArrayList<Product> selectByCondition(String condition) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Product selectById(Product t) {
 		// TODO Auto-generated method stub
 		return null;
 	}

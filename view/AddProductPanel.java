@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -105,10 +106,10 @@ public class AddProductPanel extends JPanel {
 					ConnectDatabase.closeConnection(connect);
 					statement.close();
 					
-	                
+	                JOptionPane.showMessageDialog(null, "Add Product Successfully");
 				} catch (SQLException e1) {
 					
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null,"Product Id Already Exists ");
 				}
 				
 			}
