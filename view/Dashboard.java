@@ -37,46 +37,34 @@ import view.AddProductPanel;
 import view.ShowProductsPanel;
 import view.DeleteProductPanel;
 import view.UpdateProductPanel;
+import java.awt.SystemColor;
 public class Dashboard extends JFrame {
 
 	
 
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	public static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Dashboard frame = new Dashboard();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
-	// panel ngoàiiiiiii
+    public Dashboard() {
+    	this.setBounds(100, 100, 1092, 742);
+    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	this.setTitle("Coffe Management System");
+		this.setVisible(true);
+		init();
+		
+	}
+	public static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	static AddProductPanel addProductPanel = new AddProductPanel();
 	static ShowProductsPanel showProductsPanel = new ShowProductsPanel();
 	static UpdateProductPanel updateProductPanel = new UpdateProductPanel();
 	static DeleteProductPanel deleteProductPanel = new DeleteProductPanel();
-	
-//	 addStaffPanel addstaffpanel = new addStaffPanel();
-//     deleteStaffPanel deletestaffpanel = new deleteStaffPanel();
-     //static showStaffsPanel  showstaffspanel = new showStaffsPanel();
-     static addStaffPanel addstaffpanel = new addStaffPanel();
-     static showStaffsPanel showstaffspanel = new showStaffsPanel();
-     static deleteStaffPanel deletestaffpanel = new deleteStaffPanel();
-     static updateStaffPanel updatestaffpanel = new updateStaffPanel();
-//     updateStaffPanel updatestaffpanel = new updateStaffPanel();
-	
+	static addStaffPanel addstaffpanel = new addStaffPanel();
+    static showStaffsPanel showstaffspanel = new showStaffsPanel();
+    static deleteStaffPanel deletestaffpanel = new deleteStaffPanel();
+    static updateStaffPanel updatestaffpanel = new updateStaffPanel();
 
+	
+       
 	/**
 	 * Create the frame.
 	 */
@@ -86,32 +74,36 @@ public class Dashboard extends JFrame {
 	public JLabel staffLabel = new JLabel("Staff");
 	public JLabel orderLabel = new JLabel("Order");
 	
-	//product
+	//product,staff
 	public JButton addProductButton = new JButton("ADD PRODUCT");	
 	public JButton showProductsButton = new JButton("SHOW PRODUCTS");
 	public JButton deleteProductButton = new JButton("DELETE PRODUCT");
 	public JButton updateProductButton = new JButton("UPDATE PRODUCT");
-	private final JButton addStaffButton = new JButton("ADD STAFF");
-	private final JButton deleteStaffButton = new JButton("DELETE STAFF");
-	private final JButton updateStaffButton = new JButton("UPDATE STAFF ");
-	private final JButton showStaffsButton = new JButton("SHOW STAFFS");
+	public  JButton addStaffButton = new JButton("ADD STAFF");
+	public  JButton deleteStaffButton = new JButton("DELETE STAFF");
+	public  JButton updateStaffButton = new JButton("UPDATE STAFF ");
+	public  JButton showStaffsButton = new JButton("SHOW STAFFS");
+	private final JPanel decorateYellowHomePanel = new JPanel();
+	private final JLabel decorateFunctionStaffLabel = new JLabel("FUNCTION");
+	private final JLabel decorateFunctionProductLabel = new JLabel("FUNCTION");
 	
-	public Dashboard() {
+	
+	public void init(){
 		
 		
 		// khởi tạo listener
 		MouseMenuListener mousemenulistener = new MouseMenuListener(this);
-//		ProductListener productListener = new ProductListener(this);
+        //ProductListener productListener = new ProductListener(this);
 
 		productsLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/drink (1).png")));
 		staffLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/management (1).png")));
 		orderLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/checklist (1).png")));
+		decorateFunctionStaffLabel.setForeground(new Color(219, 171, 33));
 		
 		
 		
-		this.setTitle("Coffe Management System");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1092, 742);
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -122,7 +114,7 @@ public class Dashboard extends JFrame {
 		functionPanel.setBounds(0, 86, 169, 619);
 		functionPanel.setLayout(null);
 		
-		// tạo khung chứa vùng hiển thị giá trị
+		
 		
 		
 		
@@ -237,39 +229,126 @@ public class Dashboard extends JFrame {
 		
 		
 		// thêm tab vào tabbedpanel
-		tabbedPane.setBounds(170, 1, 908, 704);
+		tabbedPane.setBounds(170, 10, 908, 695);
 		JPanel homeTabbedPanel = new JPanel();
 		tabbedPane.addTab("Home", null, homeTabbedPanel, null);
 		homeTabbedPanel.setLayout(null);
 		
-		JLabel homeTabbedLabel = new JLabel("COFFEE MANAGEMENT SYSTEM");
-		homeTabbedLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		homeTabbedLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		homeTabbedLabel.setBounds(166, 128, 480, 253);
-		homeTabbedPanel.add(homeTabbedLabel);
+		JPanel decorateHomePanel = new JPanel();
+		decorateHomePanel.setBackground(new Color(46, 45, 41));
+		decorateHomePanel.setForeground(new Color(0, 0, 0));
+		decorateHomePanel.setBounds(0, 0, 903, 245);
+		homeTabbedPanel.add(decorateHomePanel);
+		decorateHomePanel.setLayout(null);
+		
+		JLabel decorateTitleHomeLabel = new JLabel("COFFEE MANAGEMENT SYSTEM");
+		decorateTitleHomeLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/shop 100.png")));
+		decorateTitleHomeLabel.setForeground(new Color(237, 180, 19));
+		decorateTitleHomeLabel.setBounds(139, 58, 661, 107);
+		decorateHomePanel.add(decorateTitleHomeLabel);
+		decorateTitleHomeLabel.setBackground(Color.WHITE);
+		decorateTitleHomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		decorateTitleHomeLabel.setFont(new Font("Neon 80s", Font.BOLD, 26));
+		decorateYellowHomePanel.setBackground(new Color(140, 109, 22));
+		decorateYellowHomePanel.setBounds(0, 244, 903, 433);
+		
+		homeTabbedPanel.add(decorateYellowHomePanel);
+		decorateYellowHomePanel.setLayout(null);
 		JPanel productsTabbedPanel = new JPanel();
 		tabbedPane.addTab("Products", null, productsTabbedPanel, null);
 		productsTabbedPanel.setLayout(null);
 		
-		JPanel staffTabbedPanel = new JPanel();
-		tabbedPane.addTab("Staff", null, staffTabbedPanel, null);
-		staffTabbedPanel.setLayout(null);
-		
-		
-		
-		
-		
-		
-		
-		JPanel orderTabbedPanell = new JPanel();
-		orderTabbedPanell.setForeground(new Color(102, 51, 204));
-		tabbedPane.addTab("Order", null, orderTabbedPanell, null);
-		
-		
-		
+		JPanel decorateProductPanel = new JPanel();
+		decorateProductPanel.setBackground(new Color(56, 54, 49));
+		decorateProductPanel.setBounds(0, 0, 216, 668);
+		productsTabbedPanel.add(decorateProductPanel);
+		decorateProductPanel.setLayout(null);
+								
+		addProductButton.setBounds(10, 137, 199, 40);
+		decorateProductPanel.add(addProductButton);
+		addProductButton.setFocusable(false);
+								
 		addProductButton.setHorizontalAlignment(SwingConstants.LEFT);
 		addProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/add 40.png")));
 		addProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		deleteProductButton.setBounds(10, 199, 199, 40);
+		decorateProductPanel.add(deleteProductButton);
+		deleteProductButton.setFocusable(false);
+//		//addProductButton.addActionListener(productListener);
+		deleteProductButton.addMouseListener(new MouseAdapter() {								
+			public void mousePressed(MouseEvent e) {
+				tabbedPane.setVisible(false);
+				addProductPanel.setVisible(false);
+				deleteProductPanel.setVisible(true);
+				updateProductPanel.setVisible(false);
+				showProductsPanel.setVisible(false);
+				
+				addstaffpanel.setVisible(false);
+				deletestaffpanel.setVisible(false);
+				updatestaffpanel.setVisible(false);
+				showstaffspanel.setVisible(false);
+
+			}
+		});										
+											
+										
+				deleteProductButton.setHorizontalAlignment(SwingConstants.LEFT);
+				deleteProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/icons8-delete-30 (2).png")));
+				deleteProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
+				showProductsButton.setBounds(10, 263, 199, 40);
+				decorateProductPanel.add(showProductsButton);
+				showProductsButton.setFocusable(false);
+				//		updateProductButton.addActionListener(productListener);
+						showProductsButton.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mousePressed(MouseEvent e) {
+								tabbedPane.setVisible(false);
+				
+								addstaffpanel.setVisible(false);
+								deletestaffpanel.setVisible(false);
+								updatestaffpanel.setVisible(false);
+								showstaffspanel.setVisible(false);
+								
+								addProductPanel.setVisible(false);
+								deleteProductPanel.setVisible(false);
+								showProductsPanel.setVisible(true);
+								updateProductPanel.setVisible(false);
+							}
+						});						
+						showProductsButton.setHorizontalAlignment(SwingConstants.LEFT);
+						showProductsButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/show 30.png")));
+						showProductsButton.setFont(new Font("Roboto", Font.BOLD, 13));
+						updateProductButton.setBounds(10, 331, 199, 40);
+						decorateProductPanel.add(updateProductButton);
+						updateProductButton.setFocusable(false);
+						//		deleteProductButton.addActionListener(productListener);
+								updateProductButton.addMouseListener(new MouseAdapter() {
+									@Override
+									public void mousePressed(MouseEvent e) {
+						                tabbedPane.setVisible(false);
+						                
+										addstaffpanel.setVisible(false);
+										deletestaffpanel.setVisible(false);
+										updatestaffpanel.setVisible(false);
+										showstaffspanel.setVisible(false);
+										
+										addProductPanel.setVisible(false);
+										deleteProductPanel.setVisible(false);
+										showProductsPanel.setVisible(false);
+										updateProductPanel.setVisible(true);
+										
+									}
+								});								
+								updateProductButton.setHorizontalAlignment(SwingConstants.LEFT);
+								updateProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/update 30.png")));
+								updateProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
+								decorateFunctionProductLabel.setHorizontalAlignment(SwingConstants.CENTER);
+								decorateFunctionProductLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/setting 64.png")));
+								decorateFunctionProductLabel.setForeground(new Color(237, 180, 19));
+								decorateFunctionProductLabel.setFont(new Font("Nirmala UI", Font.BOLD, 21));
+								decorateFunctionProductLabel.setBounds(10, 34, 184, 75);
+								
+								decorateProductPanel.add(decorateFunctionProductLabel);
 		addProductButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -285,149 +364,47 @@ public class Dashboard extends JFrame {
 				showstaffspanel.setVisible(false);
 				}
 		});
+												
+		JPanel staffTabbedPanel = new JPanel();
+		tabbedPane.addTab("Staff", null, staffTabbedPanel, null);
+		staffTabbedPanel.setLayout(null);
 		
+		JPanel decorateStaffPanel = new JPanel();
+		decorateStaffPanel.setBackground(new Color(56, 54, 49));
+		decorateStaffPanel.setBounds(0, 0, 264, 668);
+		staffTabbedPanel.add(decorateStaffPanel);
+		decorateStaffPanel.setLayout(null);
+		addStaffButton.setBounds(32, 84, 203, 39);
+		decorateStaffPanel.add(addStaffButton);
 		
+		addStaffButton.setFocusable(false);
+		addStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/add 30.png")));
+		addStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		addStaffButton.setForeground(new Color(0, 0, 0));
+		deleteStaffButton.setBounds(32, 154, 203, 39);
+		decorateStaffPanel.add(deleteStaffButton);
+		deleteStaffButton.setFocusable(false);
+		deleteStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/icons8-delete-30 (2).png")));
+		deleteStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		deleteStaffButton.setForeground(new Color(0, 0, 0));
+		updateStaffButton.setBounds(32, 227, 203, 39);
+		decorateStaffPanel.add(updateStaffButton);
+		updateStaffButton.setFocusable(false);
+		updateStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/update 30.png")));
+		updateStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		updateStaffButton.setForeground(new Color(0, 0, 0));
+		showStaffsButton.setBounds(32, 301, 203, 39);
+		decorateStaffPanel.add(showStaffsButton);
+		showStaffsButton.setFocusable(false);
+		showStaffsButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/show 30.png")));
+		showStaffsButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		showStaffsButton.setForeground(new Color(0, 0, 0));
+		decorateFunctionStaffLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		decorateFunctionStaffLabel.setFont(new Font("Nirmala UI", Font.BOLD, 22));
+		decorateFunctionStaffLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/setting 64.png")));
+		decorateFunctionStaffLabel.setBounds(0, 10, 236, 67);
 		
-		
-		// Product pane
-		addProductButton.setBounds(62, 111, 199, 51);
-		productsTabbedPanel.add(addProductButton);
-//		addProductButton.addActionListener(productListener);
-		deleteProductButton.addMouseListener(new MouseAdapter() {
-			
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(true);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(false);
-
-			}
-		});
-		deleteProductButton.setHorizontalAlignment(SwingConstants.LEFT);
-		deleteProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/icons8-delete-30 (2).png")));
-		deleteProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
-//		deleteProductButton.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mousePressed(MouseEvent e) {
-//				new DeleteProductPanel().setVisible(true);
-//			}
-//		});
-		
-		
-		deleteProductButton.setBounds(62, 362, 199, 44);
-		productsTabbedPanel.add(deleteProductButton);
-//		deleteProductButton.addActionListener(productListener);
-		updateProductButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-                tabbedPane.setVisible(false);
-                
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(false);
-				
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				updateProductPanel.setVisible(true);
-				
-			}
-		});
-		updateProductButton.setHorizontalAlignment(SwingConstants.LEFT);
-		updateProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/update 30.png")));
-		updateProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
-
-		updateProductButton.setBounds(62, 192, 199, 51);
-		productsTabbedPanel.add(updateProductButton);
-//		updateProductButton.addActionListener(productListener);
-		showProductsButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(false);
-				
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				showProductsPanel.setVisible(true);
-				updateProductPanel.setVisible(false);
-			}
-		});
-		showProductsButton.setHorizontalAlignment(SwingConstants.LEFT);
-		showProductsButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/show 30.png")));
-		showProductsButton.setFont(new Font("Roboto", Font.BOLD, 13));
-		
-		
-		showProductsButton.setBounds(62, 275, 199, 51);
-		productsTabbedPanel.add(showProductsButton);
-//		showProductsButton.addActionListener(productListener);
-		
-		
-		
-		
-		
-
-		// set event listener cho vung staff panel
-		
-		deleteStaffButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(true);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(false);
-			}
-		});
-		
-		updateStaffButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(true);
-				showstaffspanel.setVisible(false);
-			}
-		});
-
-		addStaffButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				updatestaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-			    showstaffspanel.setVisible(false);
-			    addstaffpanel.setVisible(true);
-			    
-				
-			}
-		});
+		decorateStaffPanel.add(decorateFunctionStaffLabel);
 		
 		
 		showStaffsButton.addMouseListener(new MouseAdapter() {
@@ -447,16 +424,73 @@ public class Dashboard extends JFrame {
 			}
 		});
 		
-		updateStaffButton.setBounds(87, 319, 203, 48);
-		showStaffsButton.setBounds(87, 428, 203, 48);
-		deleteStaffButton.setBounds(87, 215, 203, 48);
-		addStaffButton.setBounds(87, 115, 203, 48);
+		updateStaffButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				tabbedPane.setVisible(false);
+				addProductPanel.setVisible(false);
+				deleteProductPanel.setVisible(false);
+				updateProductPanel.setVisible(false);
+				showProductsPanel.setVisible(false);
+				
+				addstaffpanel.setVisible(false);
+				deletestaffpanel.setVisible(false);
+				updatestaffpanel.setVisible(true);
+				showstaffspanel.setVisible(false);
+			}
+		});
+		//		showProductsButton.addActionListener(productListener);
+				
+				
+		// set event listener cho vung staff panel
+		
+		deleteStaffButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				tabbedPane.setVisible(false);
+				addProductPanel.setVisible(false);
+				deleteProductPanel.setVisible(false);
+				updateProductPanel.setVisible(false);
+				showProductsPanel.setVisible(false);
+				
+				addstaffpanel.setVisible(false);
+				deletestaffpanel.setVisible(true);
+				updatestaffpanel.setVisible(false);
+				showstaffspanel.setVisible(false);
+			}
+		});		
+				
+		addStaffButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				tabbedPane.setVisible(false);
+				addProductPanel.setVisible(false);
+				deleteProductPanel.setVisible(false);
+				updateProductPanel.setVisible(false);
+				showProductsPanel.setVisible(false);
+				
+				updatestaffpanel.setVisible(false);
+				deletestaffpanel.setVisible(false);
+			    showstaffspanel.setVisible(false);
+			    addstaffpanel.setVisible(true);
+			    
+				
+			}
+		});
 		
 		
-		staffTabbedPanel.add(showStaffsButton);
-		staffTabbedPanel.add(updateStaffButton);
-		staffTabbedPanel.add(addStaffButton);
-		staffTabbedPanel.add(deleteStaffButton);
+				
+				
+						
+		
+		
+		
+		
+		
+		
+		JPanel orderTabbedPanell = new JPanel();
+		orderTabbedPanell.setForeground(new Color(102, 51, 204));
+		tabbedPane.addTab("Order", null, orderTabbedPanell, null);
 		
 		contentPane.add(functionPanel);
 		contentPane.add(titlePanel);
@@ -493,24 +527,59 @@ public class Dashboard extends JFrame {
 		this.productsLabel.setBackground(new Color(46,45,41));
 		this.staffLabel.setBackground(new Color(46,45,41));
 		this.orderLabel.setBackground(new Color(46,45,41));
-	   
-	}
-	public void pressProductsLabel() {
+		
+	    tabbedPane.setVisible(true);
+		
+	    updatestaffpanel.setVisible(false);
+	    deletestaffpanel.setVisible(false);
+	    showstaffspanel.setVisible(false);
+	    addstaffpanel.setVisible(false);
+	    
+	    addProductPanel.setVisible(false);
+	    deleteProductPanel.setVisible(false);
+	    updateProductPanel.setVisible(false);
+	    showProductsPanel.setVisible(false);}
+	    
+	  public void pressProductsLabel() {
 		this.tabbedPane.setSelectedIndex(1);
 		this.homeLabel.setBackground(new Color(46,45,41));
 		this.productsLabel.setBackground(new Color(252, 186, 3));
 		this.staffLabel.setBackground(new Color(46,45,41));
 		this.orderLabel.setBackground(new Color(46,45,41));
 		
-	}
-	public void pressStaffLabel() {
+		
+	    tabbedPane.setVisible(true);
+		
+		updatestaffpanel.setVisible(false);
+	    deletestaffpanel.setVisible(false);
+	    showstaffspanel.setVisible(false);
+	    addstaffpanel.setVisible(false);
+	    
+	    addProductPanel.setVisible(false);
+	    deleteProductPanel.setVisible(false);
+	    updateProductPanel.setVisible(false);
+	    showProductsPanel.setVisible(false);}
+		
+	  public void pressStaffLabel() {
 		this.tabbedPane.setSelectedIndex(2);
 		this.homeLabel.setBackground(new Color(46,45,41));
 		this.productsLabel.setBackground(new Color(46,45,41));
 		this.staffLabel.setBackground(new Color(252, 186, 3));
 		this.orderLabel.setBackground(new Color(46,45,41));
 		
-	}
+		
+	    tabbedPane.setVisible(true);
+		
+		updatestaffpanel.setVisible(false);
+	    deletestaffpanel.setVisible(false);
+	    showstaffspanel.setVisible(false);
+	    addstaffpanel.setVisible(false);
+	    
+	    addProductPanel.setVisible(false);
+	    deleteProductPanel.setVisible(false);
+	    updateProductPanel.setVisible(false);
+	    showProductsPanel.setVisible(false);}
+		
 	public void pressOrderLabel() {
 		this.tabbedPane.setSelectedIndex(3);
 		this.homeLabel.setBackground(new Color(46,45,41));
@@ -518,7 +587,23 @@ public class Dashboard extends JFrame {
 		this.staffLabel.setBackground(new Color(46,45,41));
 		this.orderLabel.setBackground(new Color(252, 186, 3));
 		
-	}
+		
+	    tabbedPane.setVisible(true);
+		
+		updatestaffpanel.setVisible(false);
+	    deletestaffpanel.setVisible(false);
+	    showstaffspanel.setVisible(false);
+	    addstaffpanel.setVisible(false);
+	    
+	    addProductPanel.setVisible(false);
+	    deleteProductPanel.setVisible(false);
+	    updateProductPanel.setVisible(false);
+	    showProductsPanel.setVisible(false);}
+		
+	
+	
+	
+	
 	
 	//chức năng bấm bảng product
 	public void clickAddProductButton() {
@@ -580,11 +665,6 @@ public static void clickCloseButtonStaff() {
 		updatestaffpanel.setVisible(false);
 		showstaffspanel.setVisible(false);
 		
-		
-	}
-	
-	public static void clickResetbutton() {
-		deleteProductPanel.setVisible(false);
 		
 	}
 }

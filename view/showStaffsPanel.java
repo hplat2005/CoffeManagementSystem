@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class showStaffsPanel extends JPanel {
 
@@ -170,6 +171,11 @@ public class showStaffsPanel extends JPanel {
 		
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		scrollPane.setViewportView(table);
+		
+		JLabel backgroundLabel = new JLabel("");
+		backgroundLabel.setBackground(SystemColor.activeCaption);
+		backgroundLabel.setBounds(0, 94, 908, 610);
+		backgroundLabel.setOpaque(true);
+		add(backgroundLabel);
 		}
-	
 }

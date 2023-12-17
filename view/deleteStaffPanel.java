@@ -20,6 +20,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class deleteStaffPanel extends JPanel {
 
@@ -170,12 +172,24 @@ public class deleteStaffPanel extends JPanel {
 				view.Dashboard.updatestaffpanel.setVisible(false);
 				view.Dashboard.showProductsPanel.setVisible(false);
 				view.Dashboard.showstaffspanel.setVisible(false);
+				searchStaffIdText.setText("Please enter Staff Id here...");
 			}
 		});
 		closeButton.setBounds(649, 539, 130, 34);
 		add(closeButton);
 		
-		searchStaffIdText = new JTextField();
+		searchStaffIdText = new JTextField("Please enter Staff Id here...");
+		searchStaffIdText.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				String userEnter = searchStaffIdText.getText();
+				while(userEnter != null) {
+					searchStaffIdText.setText(null);
+					break;
+				}
+			}
+		});
+		
 		searchStaffIdText.setForeground(Color.ORANGE);
 		searchStaffIdText.setFont(new Font("Roboto", Font.BOLD, 12));
 		searchStaffIdText.setColumns(10);

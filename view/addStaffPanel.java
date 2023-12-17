@@ -42,37 +42,34 @@ public class addStaffPanel extends JPanel {
 		lblAddStaff.setFont(new Font("Space Age", Font.BOLD, 18));
 		lblAddStaff.setBackground(Color.DARK_GRAY);
 		lblAddStaff.setBounds(0, 0, 908, 97);
-		add(lblAddStaff);
+		
 		
 		JLabel staffIdLabel = new JLabel("Staff Id");
 		staffIdLabel.setForeground(Color.DARK_GRAY);
 		staffIdLabel.setFont(new Font("Roboto", Font.BOLD, 13));
 		staffIdLabel.setBounds(138, 158, 130, 34);
-		add(staffIdLabel);
+		
 		
 		JLabel staffNameLabel = new JLabel("Staff Name");
 		staffNameLabel.setForeground(Color.DARK_GRAY);
 		staffNameLabel.setFont(new Font("Roboto", Font.BOLD, 13));
 		staffNameLabel.setBounds(138, 218, 130, 34);
-		add(staffNameLabel);
-		
+				
 		JLabel staffAddressLabel = new JLabel("Staff Address");
 		staffAddressLabel.setForeground(Color.DARK_GRAY);
 		staffAddressLabel.setFont(new Font("Roboto", Font.BOLD, 13));
 		staffAddressLabel.setBounds(138, 276, 130, 34);
-		add(staffAddressLabel);
 		
 		JLabel staffPhoneNumberLabel = new JLabel("Staff Phone Number");
 		staffPhoneNumberLabel.setForeground(Color.DARK_GRAY);
 		staffPhoneNumberLabel.setFont(new Font("Roboto", Font.BOLD, 13));
 		staffPhoneNumberLabel.setBounds(138, 331, 130, 34);
-		add(staffPhoneNumberLabel);
 		
 		staffIdText = new JTextField();
 		staffIdText.setFont(new Font("Roboto", Font.BOLD, 11));
 		staffIdText.setForeground(Color.ORANGE);
 		staffIdText.setBounds(261, 159, 594, 34);
-		add(staffIdText);
+		
 		staffIdText.setColumns(10);
 		
 		staffNameText = new JTextField();
@@ -80,22 +77,21 @@ public class addStaffPanel extends JPanel {
 		staffNameText.setForeground(Color.ORANGE);
 		staffNameText.setColumns(10);
 		staffNameText.setBounds(261, 218, 594, 34);
-		add(staffNameText);
+		
 		
 		staffAddressText = new JTextField();
 		staffAddressText.setFont(new Font("Roboto", Font.BOLD, 11));
 		staffAddressText.setForeground(Color.ORANGE);
 		staffAddressText.setColumns(10);
 		staffAddressText.setBounds(261, 276, 594, 34);
-		add(staffAddressText);
+		
 		
 		staffPhoneNumberText = new JTextField();
 		staffPhoneNumberText.setFont(new Font("Roboto", Font.BOLD, 11));
 		staffPhoneNumberText.setForeground(Color.ORANGE);
 		staffPhoneNumberText.setColumns(10);
 		staffPhoneNumberText.setBounds(261, 332, 594, 34);
-		add(staffPhoneNumberText);
-		
+				
 		JButton addButton = new JButton("ADD");
 		addButton.setIcon(new ImageIcon(addStaffPanel.class.getResource("/image/add 30.png")));
 		addButton.addMouseListener(new MouseAdapter() {
@@ -116,16 +112,13 @@ public class addStaffPanel extends JPanel {
 		});
 		addButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		addButton.setBounds(397, 404, 141, 34);
-		add(addButton);
+		
+
 		
 		JButton closeButton = new JButton("CLOSE");
-		closeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		closeButton.setIcon(new ImageIcon(addStaffPanel.class.getResource("/image/close 26.png")));
 		closeButton.addMouseListener(new MouseAdapter() {
-			@Override
+			
 			public void mousePressed(MouseEvent e) {
 			    view.Dashboard.tabbedPane.setVisible(true);
 				view.Dashboard.addProductPanel.setVisible(false);
@@ -142,12 +135,12 @@ public class addStaffPanel extends JPanel {
 		});
 		closeButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		closeButton.setBounds(641, 404, 141, 34);
-		add(closeButton);
+		
 		
 		JButton resetButton = new JButton("RESET");
 		resetButton.setIcon(new ImageIcon(addStaffPanel.class.getResource("/image/icons8-reset-30 (4).png")));
 		resetButton.addMouseListener(new MouseAdapter() {
-			@Override
+			
 			public void mousePressed(MouseEvent e) {
 				
 				staffIdText.setText(null);
@@ -158,7 +151,24 @@ public class addStaffPanel extends JPanel {
 		});
 		resetButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		resetButton.setBounds(141, 404, 141, 34);
-		add(resetButton);
+		
+		
+		
+		
+		this.add(resetButton);
+		this.add(closeButton);
+		this.add(addButton);
+		this.add(staffPhoneNumberText);
+		this.add(staffAddressText);
+		this.add(staffNameText);
+		this.add(staffIdText);
+		this.add(staffPhoneNumberLabel);
+		this.add(staffAddressLabel);
+		this.add(staffNameLabel);
+		this.add(staffIdLabel);
+		this.add(lblAddStaff);
+
+
 		
 
 	}
