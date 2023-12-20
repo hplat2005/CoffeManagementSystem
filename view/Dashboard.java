@@ -40,19 +40,17 @@ import view.UpdateProductPanel;
 import java.awt.SystemColor;
 public class Dashboard extends JFrame {
 
-	
-
-//	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	
-    public Dashboard() {
+	  public Dashboard() {
+//		this.setUndecorated(true);
     	this.setBounds(100, 100, 1092, 742);
     	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	this.setTitle("Coffe Management System");
 		this.setVisible(true);
 		init();
 		
+		
 	}
+    private JPanel contentPane;
 	public static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	static AddProductPanel addProductPanel = new AddProductPanel();
 	static ShowProductsPanel showProductsPanel = new ShowProductsPanel();
@@ -64,11 +62,7 @@ public class Dashboard extends JFrame {
     static updateStaffPanel updatestaffpanel = new updateStaffPanel();
 
 	
-       
-	/**
-	 * Create the frame.
-	 */
-	
+    
 	public JLabel homeLabel  = new JLabel("Home");
 	public JLabel productsLabel = new JLabel("Products");
 	public JLabel staffLabel = new JLabel("Staff");
@@ -160,6 +154,7 @@ public class Dashboard extends JFrame {
 //			@Override
 //			public void mousePressed(MouseEvent e) {
 //				tabbedPane.setSelectedIndex(1);
+		
 //				productsLabel.setBackground(new Color(252, 186, 3));
 //	            homeLabel.setBackground(new Color(46,45,41));
 //				staffLabel.setBackground(new Color(46,45,41));
@@ -371,29 +366,37 @@ public class Dashboard extends JFrame {
 		
 		JPanel decorateStaffPanel = new JPanel();
 		decorateStaffPanel.setBackground(new Color(56, 54, 49));
-		decorateStaffPanel.setBounds(0, 0, 264, 668);
+		decorateStaffPanel.setBounds(0, 0, 223, 668);
 		staffTabbedPanel.add(decorateStaffPanel);
 		decorateStaffPanel.setLayout(null);
-		addStaffButton.setBounds(32, 84, 203, 39);
+		addStaffButton.setHorizontalAlignment(SwingConstants.LEFT);
+		addStaffButton.setBounds(10, 87, 203, 39);
 		decorateStaffPanel.add(addStaffButton);
 		
 		addStaffButton.setFocusable(false);
 		addStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/add 30.png")));
 		addStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		addStaffButton.setForeground(new Color(0, 0, 0));
-		deleteStaffButton.setBounds(32, 154, 203, 39);
+		deleteStaffButton.setHorizontalAlignment(SwingConstants.LEFT);
+		deleteStaffButton.setBounds(10, 146, 203, 39);
 		decorateStaffPanel.add(deleteStaffButton);
 		deleteStaffButton.setFocusable(false);
 		deleteStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/icons8-delete-30 (2).png")));
 		deleteStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		deleteStaffButton.setForeground(new Color(0, 0, 0));
-		updateStaffButton.setBounds(32, 227, 203, 39);
+		updateStaffButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		updateStaffButton.setHorizontalAlignment(SwingConstants.LEFT);
+		updateStaffButton.setBounds(10, 207, 203, 39);
 		decorateStaffPanel.add(updateStaffButton);
 		updateStaffButton.setFocusable(false);
 		updateStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/update 30.png")));
 		updateStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		updateStaffButton.setForeground(new Color(0, 0, 0));
-		showStaffsButton.setBounds(32, 301, 203, 39);
+		showStaffsButton.setHorizontalAlignment(SwingConstants.LEFT);
+		showStaffsButton.setBounds(10, 266, 203, 39);
 		decorateStaffPanel.add(showStaffsButton);
 		showStaffsButton.setFocusable(false);
 		showStaffsButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/show 30.png")));
@@ -402,7 +405,7 @@ public class Dashboard extends JFrame {
 		decorateFunctionStaffLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		decorateFunctionStaffLabel.setFont(new Font("Nirmala UI", Font.BOLD, 22));
 		decorateFunctionStaffLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/setting 64.png")));
-		decorateFunctionStaffLabel.setBounds(0, 10, 236, 67);
+		decorateFunctionStaffLabel.setBounds(-13, 10, 236, 67);
 		
 		decorateStaffPanel.add(decorateFunctionStaffLabel);
 		
@@ -432,7 +435,7 @@ public class Dashboard extends JFrame {
 				deleteProductPanel.setVisible(false);
 				updateProductPanel.setVisible(false);
 				showProductsPanel.setVisible(false);
-				
+			
 				addstaffpanel.setVisible(false);
 				deletestaffpanel.setVisible(false);
 				updatestaffpanel.setVisible(true);
@@ -492,6 +495,10 @@ public class Dashboard extends JFrame {
 		orderTabbedPanell.setForeground(new Color(102, 51, 204));
 		tabbedPane.addTab("Order", null, orderTabbedPanell, null);
 		
+		
+		
+		
+		
 		contentPane.add(functionPanel);
 		contentPane.add(titlePanel);
 		contentPane.add(tabbedPane);
@@ -501,8 +508,8 @@ public class Dashboard extends JFrame {
 		contentPane.add(showProductsPanel);
 		
 		contentPane.add(addstaffpanel);
-//		getContentPane().add(showstaffspanel);
-		//contentPane.add(addstaffpanel);
+
+	
 		contentPane.add(deletestaffpanel);
 		contentPane.add(updatestaffpanel);
 	    contentPane.add(showstaffspanel);

@@ -29,6 +29,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
 
 public class login extends JFrame {
 
@@ -70,21 +71,21 @@ public class login extends JFrame {
 		usernameLabel.setForeground(new Color(237, 180, 19));
 		usernameLabel.setBackground(new Color(237, 180, 19));
 		usernameLabel.setFont(new Font("Roboto", Font.BOLD, 18));
-		usernameLabel.setBounds(117, 97, 111, 52);
+		usernameLabel.setBounds(93, 126, 111, 52);
 		contentPane.add(usernameLabel);
 		
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setForeground(new Color(237, 180, 19));
 		passwordLabel.setFont(new Font("Roboto", Font.BOLD, 18));
-		passwordLabel.setBounds(117, 159, 111, 52);
+		passwordLabel.setBounds(93, 173, 111, 52);
 		
 		
 		
-		userNameTextField.setBounds(238, 108, 364, 35);
+		userNameTextField.setBounds(205, 130, 429, 35);
 		userNameTextField.setColumns(10);
 		contentPane.add(userNameTextField);
 
-		passwordTextField.setBounds(238,168, 364,40);
+		passwordTextField.setBounds(205,175, 429,40);
 		passwordTextField.setColumns(10);
 		contentPane.add(passwordTextField);
 		
@@ -115,6 +116,8 @@ public class login extends JFrame {
 							frame.setVisible(false);
 
 							break;
+						}else {
+							JOptionPane.showMessageDialog(null,"UserName does not exist!!!");
 						}
 					}
 					
@@ -126,7 +129,7 @@ public class login extends JFrame {
 			}				
 				});
 		loginButton.setFont(new Font("Roboto Black", Font.BOLD, 15));
-		loginButton.setBounds(289, 259, 152, 38);
+		loginButton.setBounds(282, 285, 152, 38);
 		loginButton.setFocusable(false);
 				
 		
@@ -138,7 +141,7 @@ public class login extends JFrame {
 			}
 		});
 		closeButton.setFont(new Font("Roboto", Font.BOLD, 14));
-		closeButton.setBounds(289, 353, 152, 35);
+		closeButton.setBounds(303, 333, 111, 29);
 		
 		
 		
@@ -146,11 +149,28 @@ public class login extends JFrame {
 		lblNewLabel.setBackground(new Color(140, 109, 22));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Insaniburger", Font.BOLD, 25));
-		lblNewLabel.setBounds(53, 10, 669, 79);
+		lblNewLabel.setBounds(36, 10, 669, 79);
 	
 		contentPane.add(lblNewLabel);
 		
 		contentPane.add(passwordLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Forget Password?");
+		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Relax and try to remember your password=)))");			
+				}
+		});
+		lblNewLabel_1.setForeground(new Color(255, 128, 0));
+		lblNewLabel_1.setFont(new Font("Roboto", Font.ITALIC, 15));
+		lblNewLabel_1.setBounds(510, 225, 141, 19);
+		contentPane.add(lblNewLabel_1);
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(new Color(255, 255, 0));
+		separator.setBounds(10, 75, 722, 2);
+		contentPane.add(separator);
 				
 		
 	}

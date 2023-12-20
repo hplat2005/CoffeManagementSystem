@@ -52,35 +52,38 @@ public class AddProductPanel extends JPanel {
 		
 		JLabel productidlabel = new JLabel("Product Id");
 		productidlabel.setFont(new Font("Roboto", Font.BOLD, 15));
-		productidlabel.setBounds(164, 232, 141, 39);
+		productidlabel.setBounds(126, 179, 141, 39);
 		add(productidlabel);
 		
 		JLabel productnamelabel = new JLabel("Product Name");
 		productnamelabel.setFont(new Font("Roboto", Font.BOLD, 15));
-		productnamelabel.setBounds(164, 286, 141, 39);
+		productnamelabel.setBounds(126, 228, 141, 39);
 		add(productnamelabel);
 		
 		JLabel productPriceTextField = new JLabel("Product Price");
 		productPriceTextField.setFont(new Font("Roboto", Font.BOLD, 15));
-		productPriceTextField.setBounds(164, 335, 141, 39);
+		productPriceTextField.setBounds(126, 277, 141, 39);
 		add(productPriceTextField);
 		
 		productIdTextField = new JTextField();
+		productIdTextField.setForeground(new Color(255, 128, 64));
 		productIdTextField.setFont(new Font("Roboto", Font.BOLD, 13));
-		productIdTextField.setBounds(328, 232, 417, 39);
+		productIdTextField.setBounds(232, 179, 588, 39);
 		add(productIdTextField);
 		productIdTextField.setColumns(10);
 		
 		productNameTextField = new JTextField();
+		productNameTextField.setForeground(new Color(255, 128, 64));
 		productNameTextField.setFont(new Font("Roboto", Font.BOLD, 13));
 		productNameTextField.setColumns(10);
-		productNameTextField.setBounds(328, 287, 417, 39);
+		productNameTextField.setBounds(232, 228, 588, 39);
 		add(productNameTextField);
 		
 		productPriceTextFiled = new JTextField();
+		productPriceTextFiled.setForeground(new Color(255, 128, 64));
 		productPriceTextFiled.setFont(new Font("Roboto", Font.BOLD, 13));
 		productPriceTextFiled.setColumns(10);
-		productPriceTextFiled.setBounds(328, 336, 417, 39);
+		productPriceTextFiled.setBounds(232, 277, 588, 39);
 		add(productPriceTextFiled);
 		
 		
@@ -98,7 +101,8 @@ public class AddProductPanel extends JPanel {
 					
 					Connection connect = ConnectDatabase.getConnection();
 					Statement statement = connect.createStatement();
-					String sql = "INSERT INTO product (productId, productName, productPrice) VALUES(" + productId + ", \"" + productName + "\", \"" + productPrice + "\")";
+					String sql = "INSERT INTO product (productId, productName, productPrice) VALUES("  
+					+ productId + ", \"" + productName + "\", \"" + productPrice + "\")";
 					int ketqua =  statement.executeUpdate(sql);
 					
 					
@@ -116,7 +120,7 @@ public class AddProductPanel extends JPanel {
 		});
 		
 		addButton.setFont(new Font("Roboto", Font.BOLD, 17));
-		addButton.setBounds(402, 422, 141, 46);
+		addButton.setBounds(402, 366, 141, 46);
 		add(addButton);
 		
 		JButton closeAddProductButton = new JButton("CLOSE");
@@ -131,7 +135,7 @@ public class AddProductPanel extends JPanel {
 		});
 		closeAddProductButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		closeAddProductButton.setForeground(new Color(0, 0, 0));
-		closeAddProductButton.setBounds(0, 98, 110, 33);
+		closeAddProductButton.setBounds(402, 422, 141, 46);
 		add(closeAddProductButton);
 		
 		
