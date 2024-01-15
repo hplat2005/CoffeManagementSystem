@@ -1,4 +1,4 @@
-package view;
+package CoffeManagementSystem.view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import database.ConnectDatabase;
+import model.Product;
+import dao.ProductDAO;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -25,11 +27,14 @@ import view.Dashboard;
 import javax.swing.ImageIcon;
 public class AddProductPanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+	
 	public JTextField productIdTextField;
 	public JTextField productNameTextField;
 	public JTextField productPriceTextFiled;
     DefaultTableModel model;
+	public JButton addButton;
+	public JButton closeButton;
+	ProductDAO productDAO = new ProductDAO();
 	/**
 	 * Create the panel.
 	 */
@@ -90,34 +95,7 @@ public class AddProductPanel extends JPanel {
 		
 		JButton addButton = new JButton("ADD");
 		addButton.setIcon(new ImageIcon(AddProductPanel.class.getResource("/image/add 30.png")));
-		addButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				String productId = productIdTextField.getText();
-				String productName = productNameTextField.getText();
-				String productPrice = productPriceTextFiled.getText();
-				
-				try {
-					
-					Connection connect = ConnectDatabase.getConnection();
-					Statement statement = connect.createStatement();
-					String sql = "INSERT INTO product (productId, productName, productPrice) VALUES("  
-					+ productId + ", \"" + productName + "\", \"" + productPrice + "\")";
-					int ketqua =  statement.executeUpdate(sql);
-					
-					
-					
-					ConnectDatabase.closeConnection(connect);
-					statement.close();
-					
-	                JOptionPane.showMessageDialog(null, "Add Product Successfully");
-				} catch (SQLException e1) {
-					
-					JOptionPane.showMessageDialog(null,"Product Id Already Exists ");
-				}
-				
-			}
-		});
+		
 		
 		addButton.setFont(new Font("Roboto", Font.BOLD, 17));
 		addButton.setBounds(402, 366, 141, 46);
@@ -141,4 +119,22 @@ public class AddProductPanel extends JPanel {
 		
 		
 }
+	public void pressAddButton() {
+		Product product = new Product();
+		product.setProductId(productIdTextField.getText()); 
+		product.setProductName( productNameTextField.getText());
+		product.setProductPrice(productPriceTextFiled.getText());
+		
+		productDAO.insert(product);
+		
+		}
 	}
+
+	
+
+
+
+
+	
+	
+
