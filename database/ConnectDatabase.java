@@ -7,15 +7,14 @@ import javax.swing.JOptionPane;
 
 import com.mysql.cj.xdevapi.Statement;
 
-// boolean execute(String SQL){throws SQLEXception
-// int executeUpdate(String SQL)     // thực hiện các câu lệnh sql như thêm,xóa giá trị trong bảng csdl --> nó trả về số lượng dòng bị thay đổi csdl
-// ResultSet executeQuery(Strin SQL);  // thực hiện câu lệnh truy vấn sql, truy cập bảng,hiệnbảng,....
-
 public class ConnectDatabase {
+	public static ConnectDatabase getInstance() {
+		return new ConnectDatabase();
+	}
 	public static Connection getConnection(){
 		Connection connect = null;
 		
-		String url = "jdbc:mysql://127.0.0.1:3306/?user=root";
+		String url = "jdbc:mysql://127.0.0.1:3306/?user=root"; 
 		String name = "root";
 		String password = "051205";
 		
@@ -24,12 +23,11 @@ public class ConnectDatabase {
 			java.sql.Statement st = connect.createStatement();
 			String sql = "use coffemanagementsystem";
 		     st.executeUpdate(sql);
-//		     JOptionPane.showMessageDialog(null, "Database Connected");
+
 		} catch (Exception e) {
 			
 		JOptionPane.showMessageDialog(null, "Database Connection Error" + e);
-			
-		}
+			}	
 		
 		return connect;
 	}

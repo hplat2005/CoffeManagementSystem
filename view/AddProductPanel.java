@@ -1,6 +1,7 @@
-package CoffeManagementSystem.view;
+package view;
 
 import javax.swing.JPanel;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -13,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import database.ConnectDatabase;
 import model.Product;
 import dao.ProductDAO;
+import controller.AddProductController;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -28,17 +30,22 @@ import javax.swing.ImageIcon;
 public class AddProductPanel extends JPanel {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public JTextField productIdTextField;
 	public JTextField productNameTextField;
-	public JTextField productPriceTextFiled;
+	public JTextField productPriceTextField;
     DefaultTableModel model;
 	public JButton addButton;
 	public JButton closeButton;
-	ProductDAO productDAO = new ProductDAO();
+		AddProductController addProductController;
 	/**
 	 * Create the panel.
 	 */
 	public AddProductPanel() {
+		addProductController = new AddProductController(this);
 		
 		
 		setLayout(null);
@@ -65,10 +72,10 @@ public class AddProductPanel extends JPanel {
 		productnamelabel.setBounds(126, 228, 141, 39);
 		add(productnamelabel);
 		
-		JLabel productPriceTextField = new JLabel("Product Price");
-		productPriceTextField.setFont(new Font("Roboto", Font.BOLD, 15));
-		productPriceTextField.setBounds(126, 277, 141, 39);
-		add(productPriceTextField);
+		JLabel productPriceLabel = new JLabel("Product Price");
+		productPriceLabel.setFont(new Font("Roboto", Font.BOLD, 15));
+		productPriceLabel.setBounds(126, 277, 141, 39);
+		add(productPriceLabel);
 		
 		productIdTextField = new JTextField();
 		productIdTextField.setForeground(new Color(255, 128, 64));
@@ -84,37 +91,29 @@ public class AddProductPanel extends JPanel {
 		productNameTextField.setBounds(232, 228, 588, 39);
 		add(productNameTextField);
 		
-		productPriceTextFiled = new JTextField();
-		productPriceTextFiled.setForeground(new Color(255, 128, 64));
-		productPriceTextFiled.setFont(new Font("Roboto", Font.BOLD, 13));
-		productPriceTextFiled.setColumns(10);
-		productPriceTextFiled.setBounds(232, 277, 588, 39);
-		add(productPriceTextFiled);
+		productPriceTextField = new JTextField();
+		productPriceTextField.setForeground(new Color(255, 128, 64));
+		productPriceTextField.setFont(new Font("Roboto", Font.BOLD, 13));
+		productPriceTextField.setColumns(10);
+		productPriceTextField.setBounds(232, 277, 588, 39);
+		add(productPriceTextField);
 		
 		
 		
-		JButton addButton = new JButton("ADD");
+		addButton = new JButton("ADD");
 		addButton.setIcon(new ImageIcon(AddProductPanel.class.getResource("/image/add 30.png")));
-		
-		
 		addButton.setFont(new Font("Roboto", Font.BOLD, 17));
 		addButton.setBounds(402, 366, 141, 46);
-		add(addButton);
+		this.add(addButton);
+		addButton.addMouseListener(addProductController);
 		
-		JButton closeAddProductButton = new JButton("CLOSE");
-		closeAddProductButton.setIcon(new ImageIcon(AddProductPanel.class.getResource("/image/close 30.png")));
-		closeAddProductButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-			  setVisible(false);
-			  view.Dashboard.clickClosebutton();
-			  
-			}
-		});
-		closeAddProductButton.setFont(new Font("Roboto", Font.BOLD, 12));
-		closeAddProductButton.setForeground(new Color(0, 0, 0));
-		closeAddProductButton.setBounds(402, 422, 141, 46);
-		add(closeAddProductButton);
+		closeButton = new JButton("CLOSE");
+		closeButton.setIcon(new ImageIcon(AddProductPanel.class.getResource("/image/close 30.png")));
+		closeButton.setFont(new Font("Roboto", Font.BOLD, 12));
+		closeButton.setForeground(new Color(0, 0, 0));
+		closeButton.setBounds(402, 422, 141, 46);
+		this.add(closeButton);
+		closeButton.addMouseListener(addProductController);
 		
 		
 		
@@ -123,11 +122,20 @@ public class AddProductPanel extends JPanel {
 		Product product = new Product();
 		product.setProductId(productIdTextField.getText()); 
 		product.setProductName( productNameTextField.getText());
-		product.setProductPrice(productPriceTextFiled.getText());
+		product.setProductPrice(productPriceTextField.getText());
+		 
+	    ProductDAO.getInstance().insert(product);
+	    
+	    productIdTextField.setText(null);
+	    productNameTextField.setText(null);
+	    productPriceTextField.setText(null);
 		
-		productDAO.insert(product);
-		
-		}
+	}
+	public void pressCloseButton() {
+		setVisible(false);
+		  view.Dashboard.clickClosebutton();
+	}
+	
 	}
 
 	

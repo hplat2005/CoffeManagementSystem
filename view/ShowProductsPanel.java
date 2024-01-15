@@ -1,6 +1,6 @@
 package view;
 
-import javax.swing.JPanel;
+import javax.swing.JPanel; 
 
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import database.ConnectDatabase;
+import view.Dashboard;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -20,12 +21,14 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.awt.event.ActionEvent;
+
 import java.awt.FlowLayout;
 import javax.swing.ListSelectionModel;
 
 import java.sql.Statement;
 import java.sql.ResultSet;
+import controller.ShowProductsController;
+import dao.ProductDAO;
 import database.ConnectDatabase;
 import model.Product;
 import view.ShowProductsPanel;
@@ -36,17 +39,16 @@ import javax.swing.ImageIcon;
 
 public class ShowProductsPanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+	
 	public static JTable table = new JTable();
+	public static DefaultTableModel model;
+//	public JButton showButton = new JButton("SHOW");
+//	public JButton resetButton = new JButton("RESET");
+	public JButton closeButton;
 
-	/**
-	 * Create the panel.
-	 */
-	JButton showButton = new JButton("SHOW");
-	JButton resetButton = new JButton("RESET");
 
 	public ShowProductsPanel() {
-		
+		ShowProductsController showProductsController= new ShowProductsController(this);
 		// không cần quan tâm đến phần này -- phần trang trí
 		this.setBounds(170,1,908,704);
 		setLayout(null);
@@ -59,52 +61,27 @@ public class ShowProductsPanel extends JPanel {
 		lblShowProducts.setBackground(Color.DARK_GRAY);
 		add(lblShowProducts);
 		
-		
-		JButton closeButton = new JButton("CLOSE");
+		 
+		closeButton = new JButton("CLOSE");
 		closeButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/close 30.png")));
 		closeButton.setBounds(709, 491, 127, 29);
-		closeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				view.Dashboard.clickClosebutton();
-			}
-		});
 		closeButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		closeButton.addMouseListener(showProductsController);
 		add(closeButton);
 		
+//		resetButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/icons8-reset-30 (2).png")));
+//		resetButton.setFont(new Font("Roboto", Font.BOLD, 13));
+//		resetButton.setBounds(144, 488, 122, 34);
+//		resetButton.addMouseListener(showProductsController);
+//		add(resetButton);
 		
+//		showButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/show 30.png")));
+//		showButton.setForeground(new Color(0, 0, 0));
+//		showButton.setFont(new Font("Roboto", Font.BOLD, 13));
+//		showButton.setBounds(20, 488, 122, 34);
+//		showButton.addMouseListener(showProductsController);
+//		add(showButton);
 		
-	    //database
-		try {
-			Connection connect = ConnectDatabase.getConnection();
-			Statement st = connect.createStatement();
-			String sql = "SELECT * FROM product";
-			ResultSet rs =st.executeQuery(sql);
-			ResultSetMetaData rsmd = rs.getMetaData();
-			DefaultTableModel model = (DefaultTableModel)view.ShowProductsPanel.table.getModel();
-			 
-			int cols = rsmd.getColumnCount();
-			String[] colName = new String[cols];
-			for(int i=0; i<cols; i++) {
-				colName[i] = rsmd.getColumnName(i+1); // cột đc tính từ 1 trở lên
-			}
-			model.setColumnIdentifiers(colName);
-			
-		    String productId, productName, productPrice;
-		    while(rs.next()) {
-		    	productId = rs.getString(1);
-		    	productName = rs.getString(2);
-		    	productPrice = rs.getString(3);
-		    	String[] row = {productId, productName, productPrice};
-		    	model.addRow(row);
-		    	}
-		    ConnectDatabase.closeConnection(connect);
-		    st.close();
-		    
-		} catch (SQLException e1) {
-			
-			e1.printStackTrace();
-		}
-		 
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 129, 824, 349);
@@ -112,64 +89,32 @@ public class ShowProductsPanel extends JPanel {
 		
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		scrollPane.setViewportView(table);
-		
-		
-		
-		resetButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/icons8-reset-30 (2).png")));
-		resetButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				table.setModel(new DefaultTableModel());
-			     showButton.setVisible(true);
-			}
-		});
-		resetButton.setFont(new Font("Roboto", Font.BOLD, 13));
-		resetButton.setBounds(144, 488, 122, 34);
-		add(resetButton);
-		showButton.setIcon(new ImageIcon(ShowProductsPanel.class.getResource("/image/show 30.png")));
-		
-		
-		 
-		showButton.setForeground(new Color(0, 0, 0));
-		showButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				try { 
-					showButton.setVisible(false);
-					Connection connect = ConnectDatabase.getConnection();
-					Statement st = connect.createStatement();
-					String sql = "SELECT * FROM product";
-					ResultSet rs =st.executeQuery(sql);
-					ResultSetMetaData rsmd = rs.getMetaData();
-					DefaultTableModel model = (DefaultTableModel)view.ShowProductsPanel.table.getModel();
-					
-					int cols = rsmd.getColumnCount();
-					String[] colName = new String[cols];
-					for(int i=0; i<cols; i++) {
-						colName[i] = rsmd.getColumnName(i+1); // cột đc tính từ 1 trở lên
-					}
-					model.setColumnIdentifiers(colName);
-					
-					String productId, productName, productPrice;
-					while(rs.next()) {
-						productId = rs.getString(1);
-						productName = rs.getString(2);
-						productPrice = rs.getString(3);
-						String[] row = {productId, productName, productPrice};
-						model.addRow(row);
-						}
-					ConnectDatabase.closeConnection(connect);
-					st.close();
-				} catch (SQLException e1) {
-					
-					e1.printStackTrace();
-				}
-			}
-		});
-		
-		showButton.setFont(new Font("Roboto", Font.BOLD, 13));
-		showButton.setBounds(20, 488, 122, 34);
-		add(showButton);
+        
+//		ProductDAO.getInstance().selecetAll();
+//		showButton.setVisible(false);
+	}
+	public void pressCloseButton() {
+		Dashboard.clickClosebutton();
+	}
+//	public void pressResetButton() {
+//		table.setModel(new DefaultTableModel());
+//		ProductDAO.getInstance().selecetAll();
 
+//	     showButton.setVisible(true);
+//	}
+//	public void pressShowButton() {
+//		ProductDAO.getInstance().selecetAll();
+//	}
+	public void clickRowColumn() {
+		int row = table.getSelectedRow();
+		int column = table.getSelectedColumn();
+		table.getValueAt(row, column);
+		 Object value = table.getValueAt(row, column);
+		 table.setValueAt(value,row, column);
+	}
+	
+	public static void pressShowProductsButtonInHome() {
+		table.setModel(new DefaultTableModel());
+		ProductDAO.getInstance().selecetAll();
 	}
 }

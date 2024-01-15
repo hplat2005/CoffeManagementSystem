@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JPanel;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -8,7 +9,10 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import controller.UpdateProductController;
+import dao.ProductDAO;
 import database.ConnectDatabase;
+import model.Product;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -26,18 +30,25 @@ import javax.swing.ImageIcon;
 
 public class UpdateProductPanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
-	private JTextField productIdTextField  = new JTextField();
-	private JTextField productNameTextField  = new JTextField();
+	
+	public static  JTextField productIdTextField  = new JTextField();
+	public static  JTextField productNameTextField  = new JTextField();
 
-	private JTextField productPriceTextField  = new JTextField();
+	public static JTextField productPriceTextField  = new JTextField();
 
-	private JTextField searchProductIdTextField  = new JTextField();
+	public static  JTextField searchProductIdTextField  = new JTextField();
+	public JButton closeButton;
+	public JButton searchButton;
+	public JButton resetButton;
+	public JButton updateButton;
+	public UpdateProductController updateProductController;
 
 	/**
 	 * Create the panel.
 	 */
 	public UpdateProductPanel() {
+		
+		updateProductController = new UpdateProductController(this);
 		setLayout(null);
 		this.setBounds(170,1,908,704);
 		
@@ -81,82 +92,43 @@ public class UpdateProductPanel extends JPanel {
 		productPriceTextField.setBounds(301, 388, 417, 39);
 		add(productPriceTextField);
 		
-		JButton updateButton = new JButton("UPDATE");
+		 updateButton = new JButton("UPDATE");
 		updateButton.setIcon(new ImageIcon(UpdateProductPanel.class.getResource("/image/update 30.png")));
-		updateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					Connection connect = ConnectDatabase.getConnection();
-					Statement st = connect.createStatement();
-					String sql = "UPDATE product SET productId=\"" + productIdTextField.getText() + "\", productName= \"" +
-					productNameTextField.getText() + "\", productPrice= \"" + productPriceTextField.getText() 
-					+ "\" WHERE (productId=\"" + searchProductIdTextField.getText() + "\")";
-					st.executeUpdate(sql);
-				    
-					JOptionPane.showMessageDialog(null, "Update completed...");
-				} catch (SQLException e1) {
-					
-					e1.printStackTrace();
-				}
-			}  
-		});
 		updateButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		updateButton.setBounds(492, 488, 130, 29);
+		updateButton.addMouseListener(updateProductController);
 		add(updateButton);
 		
-		JButton closeButton = new JButton("CLOSE");
+		closeButton = new JButton("CLOSE");
 		closeButton.setIcon(new ImageIcon(UpdateProductPanel.class.getResource("/image/close 30.png")));
-		closeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		closeButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				view.Dashboard.clickClosebutton();
-			}
-		});
 		closeButton.setFont(new Font("Roboto", Font.BOLD, 16));
 		closeButton.setBounds(403, 636, 120, 29);
+		closeButton.addMouseListener(updateProductController);
 		add(closeButton);
 		
-		JButton searchButton = new JButton("SEARCH");
+		searchButton = new JButton("SEARCH");
 		searchButton.setIcon(new ImageIcon(UpdateProductPanel.class.getResource("/image/icons8-search-30.png")));
-		searchButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				String productId = searchProductIdTextField.getText();
-				try { 
-					Connection connect = ConnectDatabase.getConnection();
-					Statement st = connect.createStatement();
-					String sql = "SELECT * FROM product WHERE productId= \"" + productId + "\"";
-					ResultSet rs = st.executeQuery(sql);
-					if(rs.next()) {
-						
-						productIdTextField.setText(rs.getString(1));
-						productNameTextField.setText(rs.getString(2));
-						productPriceTextField.setText(rs.getString(3));
-						
-						
-					}else JOptionPane.showMessageDialog(null,"Product Id not found...");
-					
-					
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
 		searchButton.setFont(new Font("Roboto", Font.BOLD, 11));
 		searchButton.setBounds(685, 126, 109, 39);
+		searchButton.addMouseListener(updateProductController);
 		add(searchButton);
+		
+		
+		searchProductIdTextField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				while(true) {
+					searchProductIdTextField.setText(null);
+					break;
+				}
+				
+			}
+		});
 		searchProductIdTextField.setFont(new Font("Roboto", Font.BOLD, 13));
-		
-		
 		searchProductIdTextField.setBounds(301, 126, 357, 39);
 		add(searchProductIdTextField);
 		searchProductIdTextField.setColumns(10);
+		
 		
 		JLabel lblNewLabel = new JLabel("Product Id");
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 14));
@@ -171,20 +143,40 @@ public class UpdateProductPanel extends JPanel {
 		separator_1.setBounds(10, 527, 898, 12);
 		add(separator_1);
 		
-		JButton resetButton = new JButton("RESET");
+		resetButton = new JButton("RESET");
 		resetButton.setIcon(new ImageIcon(UpdateProductPanel.class.getResource("/image/icons8-reset-30 (2).png")));
-		resetButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				productIdTextField.setText(null);
-				productNameTextField.setText(null);
-				productPriceTextField.setText(null);
-				searchProductIdTextField.setText(null);
-			}
-		});
 		resetButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		resetButton.setBounds(327, 488, 120, 29);
+		resetButton.addMouseListener(updateProductController);
 		add(resetButton);
 
+	}
+	public void pressSearchButton() {
+		Product product = new Product();
+		product.setProductId(searchProductIdTextField.getText());
+		ProductDAO.getInstance().selectById(product);
+		
+		productIdTextField.setText(product.getProductId());
+		productNameTextField.setText(product.getProductName());
+		productPriceTextField.setText(product.getProductPrice());
+		
+		
+	}
+	public void pressUpdateButton() {
+		Product product = new Product();
+		product.setProductId(productIdTextField.getText());
+		product.setProductName(productNameTextField.getText());
+		product.setProductPrice(productPriceTextField.getName());
+		
+		
+	}
+	public void pressResetButton() {
+		productIdTextField.setText(null);
+		productNameTextField.setText(null);
+		productPriceTextField.setText(null);
+		searchProductIdTextField.setText(null);
+	}
+	public void pressCloseButton() {
+		view.Dashboard.clickClosebutton();
 	}
 }

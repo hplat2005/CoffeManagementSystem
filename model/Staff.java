@@ -2,7 +2,7 @@ package model;
 
 public class Staff {
 	private String staffId;
-	private String staffName;
+	private String staffName; 
 	private String staffAddress;
 	private String staffPhoneNumber;
 	public String getStaffId() {

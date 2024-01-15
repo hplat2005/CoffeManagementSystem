@@ -37,17 +37,17 @@ public class login extends JFrame {
 	private JPanel contentPane = new JPanel();
 	private JTextField userNameTextField  = new JTextField();
 	private JTextField  passwordTextField = new JTextField();
-
-
+    
+     
 	
 	JFrame frame = new JFrame();
 	JButton closeButton = new JButton("CLOSE");
-	JLabel lblNewLabel = new JLabel("COFFE MANAGEMENT SYSTEM");
+	JLabel lblNewLabel = new JLabel("COFFEE MANAGEMENT SYSTEM");
 	JButton loginButton = new JButton("LOGIN");
 	private JTextField textField;
 
 	public login() {
-//				frame.setLocationRelativeTo(null);
+//		frame.setLocationRelativeTo(null);
 //		frame.setUndecorated(true);
 		contentPane.add(loginButton);
 		contentPane.add(closeButton);

@@ -1,14 +1,14 @@
 package model;
 
 public class Product {
-	private String id;
+	private String productId;
 	private String productName;
 	private String productPrice;
-	public String getId() {
-		return id;
+	public String getProductId() {
+		return productId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setProductId(String productId) {
+		this.productId= productId;
 	}
 	public String getProductName() {
 		return productName;
@@ -22,9 +22,9 @@ public class Product {
 	public void setProductPrice(String productPrice) {
 		this.productPrice = productPrice;
 	}
-	public Product(String id, String productName, String productPrice) {
+	public Product(String productId, String productName, String productPrice) {
 		super();
-		this.id = id;
+		this.productId= productId;
 		this.productName = productName;
 		this.productPrice = productPrice;
 	}

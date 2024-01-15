@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JPanel;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -15,8 +16,10 @@ import java.sql.Statement;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import controller.DeleteProductController;
 import database.ConnectDatabase;
-
+import model.Product;
+import dao.ProductDAO;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -24,35 +27,32 @@ import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JSeparator;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
 import javax.swing.ImageIcon;
 
 public class DeleteProductPanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
-	public JTextField searchProductIdTextField;
-	public JTextField productNameTextField;
-	public JTextField productPriceTextField;
+
+	public static JTextField searchProductIdTextField;
+	public static JTextField productNameTextField;
+	public static JTextField productPriceTextField;
+	public static JTextField productIdTextField;
 	private JLabel productidlabel;
 	private JLabel productnamelabel;
 	private JLabel productpricelabel;
-	private JButton deleteButton;
-    private JButton resetButton;
+	public JButton deleteButton;
+	public JButton resetButton;
+    public JButton searchButton;
+    public JButton closeButton;
 
-	/**
-	 * Create the panel.
-	 */
-	
-	
 	private JLabel productidlabel_1;
-	private JTextField productIdTextField;
-	private JButton closeButton;
-	public DeleteProductPanel() {
+
+		public DeleteProductPanel() {
 		setForeground(Color.DARK_GRAY);
-		
 		setLayout(null);
 		this.setBounds(170,1,908,704);
+		
+		DeleteProductController deleteProductController = new DeleteProductController(this);
 		
 		JLabel labelDeleteProduct = new JLabel("DELETE PRODUCT");
 		labelDeleteProduct.setOpaque(true);
@@ -108,79 +108,30 @@ public class DeleteProductPanel extends JPanel {
 		
 		resetButton = new JButton("RESET");
 		resetButton.setIcon(new ImageIcon(DeleteProductPanel.class.getResource("/image/icons8-reset-30 (4).png")));
-		resetButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				searchProductIdTextField.setText(null);
-				productIdTextField.setText(null);
-				productNameTextField.setText(null);
-				productPriceTextField.setText(null);
-			}
-		});
 		resetButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		resetButton.setBounds(230, 506, 134, 44);
+		resetButton.addMouseListener(deleteProductController);
+		add(resetButton);
 		
 		
 		deleteButton = new JButton("DELETE");
 		deleteButton.setIcon(new ImageIcon(DeleteProductPanel.class.getResource("/image/icons8-delete-30 (2).png")));
-		deleteButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				 String productId = productIdTextField.getText();
-                 int a = JOptionPane.showConfirmDialog(null,"Do you want to DELETE","SELECT", JOptionPane.YES_NO_OPTION);
-                 if(a==0) {
-                	 try {
-						Connection connect = ConnectDatabase.getConnection();
-						 Statement st = connect.createStatement();
-						 String sql = "DELETE FROM product WHERE productId= \"" + productId + "\""; 
-						 st.executeUpdate(sql);
-						
-						 
-//						 setVisible(false);
-//						 new DeleteProductPanel().setVisible(true);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-     
-                 }
-			}
-		});
-		
 		deleteButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		deleteButton.setBounds(405, 506, 134, 44);
+		deleteButton.addMouseListener(deleteProductController);
 		add(deleteButton);
-		resetButton.setBounds(230, 506, 134, 44);
-		add(resetButton);
 		
 		
 		
-		JButton searchButton = new JButton("SEARCH");
+		
+		
+		searchButton = new JButton("SEARCH");
 		searchButton.setIcon(new ImageIcon(DeleteProductPanel.class.getResource("/image/icons8-search-30.png")));
-		searchButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				try {
-					Connection connect = ConnectDatabase.getConnection();
-					Statement st = connect.createStatement();
-					String sql = "SELECT * FROM product WHERE productId= \"" + searchProductIdTextField.getText() + "\"";
-					ResultSet rs = st.executeQuery(sql);
-					
-					if(rs.next()) {
-						productIdTextField.setText(rs.getString(1));
-						productNameTextField.setText(rs.getString(2));
-						productPriceTextField.setText(rs.getString(3));
-						
-						
-					}else JOptionPane.showMessageDialog(null, "product Id not found");
-					
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null,e2);
-				}
-			}
-		});
 		searchButton.setFont(new Font("Roboto", Font.BOLD, 11));
 		searchButton.setBounds(568, 133, 128, 39);
+		searchButton.addMouseListener(deleteProductController);
 		add(searchButton);
+		
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(0, 189, 908, 8);
@@ -200,17 +151,41 @@ public class DeleteProductPanel extends JPanel {
 		
 		closeButton = new JButton("CLOSE");
 		closeButton.setVerticalAlignment(SwingConstants.BOTTOM);
-		closeButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				view.Dashboard.clickClosebutton();
-			}
-		});
 		closeButton.setIcon(new ImageIcon(DeleteProductPanel.class.getResource("/image/icons8-return-30.png")));
 		closeButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		closeButton.setBounds(587, 508, 128, 39);
+		closeButton.addMouseListener(deleteProductController);
 		add(closeButton);
 
 
+	}
+	public void pressSearchButton() {
+		Product product = new Product();
+		product.setProductId(searchProductIdTextField.getText());
+		ProductDAO.getInstance().selectById(product);
+		
+		productIdTextField.setText(product.getProductId());
+		productNameTextField.setText(product.getProductName());
+		productPriceTextField.setText(product.getProductPrice());
+	}
+	public void pressDeleteButton() {
+		Product product = new Product();
+		product.setProductId(productIdTextField.getText());
+		ProductDAO.getInstance().delete(product);
+		
+		searchProductIdTextField.setText(null);
+		productIdTextField.setText(null);
+		productNameTextField.setText(null);
+		productPriceTextField.setText(null);
+		
+	}
+	public void pressCloseButton() {
+		view.Dashboard.clickClosebutton();
+	}
+	public void pressResetButton() {
+		searchProductIdTextField.setText(null);
+		productIdTextField.setText(null);
+		productNameTextField.setText(null);
+		productPriceTextField.setText(null);
 	}
 }

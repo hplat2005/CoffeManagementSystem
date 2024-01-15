@@ -2,6 +2,7 @@ package view;
 
 import java.awt.EventQueue;
 
+
 //import java.net.MalformedURLException;
 //import java.net.URL;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.MouseMenuListener;
 import controller.ProductListener;
+import controller.StaffListener;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -32,16 +34,16 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JDesktopPane;
 import javax.swing.JTable;
-
 import view.AddProductPanel;
 import view.ShowProductsPanel;
 import view.DeleteProductPanel;
 import view.UpdateProductPanel;
 import java.awt.SystemColor;
+import java.awt.event.MouseMotionAdapter;
 public class Dashboard extends JFrame {
 
 	  public Dashboard() {
-//		this.setUndecorated(true);
+
     	this.setBounds(100, 100, 1092, 742);
     	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	this.setTitle("Coffe Management System");
@@ -87,7 +89,8 @@ public class Dashboard extends JFrame {
 		
 		// khởi tạo listener
 		MouseMenuListener mousemenulistener = new MouseMenuListener(this);
-        //ProductListener productListener = new ProductListener(this);
+		ProductListener productListener = new ProductListener(this);
+		StaffListener staffListener = new StaffListener(this);
 
 		productsLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/drink (1).png")));
 		staffLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/management (1).png")));
@@ -100,7 +103,7 @@ public class Dashboard extends JFrame {
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		this.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel functionPanel = new JPanel();
@@ -111,9 +114,9 @@ public class Dashboard extends JFrame {
 		
 		
 		
+ // BẢNG MEMU BÊN TRÁI
 		
 		//bản menu - home
-		
 		homeLabel.setOpaque(true);
 		homeLabel.setBackground(new Color(51, 255, 102));
 		homeLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -124,23 +127,9 @@ public class Dashboard extends JFrame {
 		homeLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		homeLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/home42.png")));
 		homeLabel.setForeground(new Color(249,211,66));
-		
 		homeLabel.addMouseListener(mousemenulistener);
-//		homeLabel.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mousePressed(MouseEvent e) {
-//				tabbedPane.setSelectedIndex(0);
-//				homeLabel.setBackground(new Color(252, 186, 3));
-//				productsLabel.setBackground(new Color(46,45,41));
-//				staffLabel.setBackground(new Color(46,45,41));
-//				orderLabel.setBackground(new Color(46,45,41));
-//				}
-//			
-//		});
-		
-		
+
 		// bản menu - products
-		
 		productsLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		productsLabel.setForeground(new Color(249, 211, 66));
 		productsLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -148,23 +137,9 @@ public class Dashboard extends JFrame {
 		productsLabel.setOpaque(true);
 		productsLabel.setBounds(0, 97, 169, 39);
 		functionPanel.add(productsLabel);
-		
 		productsLabel.addMouseListener(mousemenulistener);
-//		productsLabel.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mousePressed(MouseEvent e) {
-//				tabbedPane.setSelectedIndex(1);
-		
-//				productsLabel.setBackground(new Color(252, 186, 3));
-//	            homeLabel.setBackground(new Color(46,45,41));
-//				staffLabel.setBackground(new Color(46,45,41));
-//				orderLabel.setBackground(new Color(46,45,41));
-//				
-//			}
-//		});
-//		
+
 		// bản menu - staff
-		
 		staffLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		staffLabel.setForeground(new Color(249, 211, 66));
 		staffLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -173,20 +148,8 @@ public class Dashboard extends JFrame {
 		staffLabel.setBounds(0, 159, 169, 39);
 		functionPanel.add(staffLabel);
 		staffLabel.addMouseListener(mousemenulistener);
-//		staffLabel.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mousePressed(MouseEvent e) {
-//				tabbedPane.setSelectedIndex(2);
-//				staffLabel.setBackground(new Color(252, 186, 3));
-//				productsLabel.setBackground(new Color(46,45,41));
-//	            homeLabel.setBackground(new Color(46,45,41));
-//				orderLabel.setBackground(new Color(46,45,41));
-//			}
-//		});
-//		
-//		
+
 		//bản menu - order
-		
 		orderLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		orderLabel.setForeground(new Color(249, 211, 66));
 		orderLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -195,18 +158,7 @@ public class Dashboard extends JFrame {
 		orderLabel.setBounds(0, 227, 169, 39);
 		functionPanel.add(orderLabel);
 		orderLabel.addMouseListener(mousemenulistener);
-//		orderLabel.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mousePressed(MouseEvent e) {
-//				tabbedPane.setSelectedIndex(3);
-//				orderLabel.setBackground(new Color(252, 186, 3));
-//				productsLabel.setBackground(new Color(46,45,41));
-//	            homeLabel.setBackground(new Color(46,45,41));
-//				staffLabel.setBackground(new Color(46,45,41));
-//				
-//			}
-//		});
-//		
+		
 		
 		// không quan tâm cái này - vùng trang trí tiêu đề
 		JPanel titlePanel = new JPanel();
@@ -223,7 +175,9 @@ public class Dashboard extends JFrame {
 		
 		
 		
-		// thêm tab vào tabbedpanel
+		
+		
+// thêm tab vào tabbedpanel
 		tabbedPane.setBounds(170, 10, 908, 695);
 		JPanel homeTabbedPanel = new JPanel();
 		tabbedPane.addTab("Home", null, homeTabbedPanel, null);
@@ -235,19 +189,10 @@ public class Dashboard extends JFrame {
 		decorateHomePanel.setBounds(0, 0, 903, 245);
 		homeTabbedPanel.add(decorateHomePanel);
 		decorateHomePanel.setLayout(null);
-		
-		JLabel decorateTitleHomeLabel = new JLabel("COFFEE MANAGEMENT SYSTEM");
-		decorateTitleHomeLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/shop 100.png")));
-		decorateTitleHomeLabel.setForeground(new Color(237, 180, 19));
-		decorateTitleHomeLabel.setBounds(139, 58, 661, 107);
-		decorateHomePanel.add(decorateTitleHomeLabel);
-		decorateTitleHomeLabel.setBackground(Color.WHITE);
-		decorateTitleHomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		decorateTitleHomeLabel.setFont(new Font("Neon 80s", Font.BOLD, 26));
-		decorateYellowHomePanel.setBackground(new Color(140, 109, 22));
-		decorateYellowHomePanel.setBounds(0, 244, 903, 433);
-		
 		homeTabbedPanel.add(decorateYellowHomePanel);
+		
+		
+		//// PRODUCT TRÊN TABBED PANE
 		decorateYellowHomePanel.setLayout(null);
 		JPanel productsTabbedPanel = new JPanel();
 		tabbedPane.addTab("Products", null, productsTabbedPanel, null);
@@ -258,108 +203,52 @@ public class Dashboard extends JFrame {
 		decorateProductPanel.setBounds(0, 0, 216, 668);
 		productsTabbedPanel.add(decorateProductPanel);
 		decorateProductPanel.setLayout(null);
-								
+		
+		
 		addProductButton.setBounds(10, 137, 199, 40);
 		decorateProductPanel.add(addProductButton);
 		addProductButton.setFocusable(false);
-								
 		addProductButton.setHorizontalAlignment(SwingConstants.LEFT);
 		addProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/add 40.png")));
 		addProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		addProductButton.addMouseListener(productListener);
+		
 		deleteProductButton.setBounds(10, 199, 199, 40);
 		decorateProductPanel.add(deleteProductButton);
 		deleteProductButton.setFocusable(false);
-//		//addProductButton.addActionListener(productListener);
-		deleteProductButton.addMouseListener(new MouseAdapter() {								
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(true);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(false);
-
-			}
-		});										
-											
-										
-				deleteProductButton.setHorizontalAlignment(SwingConstants.LEFT);
-				deleteProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/icons8-delete-30 (2).png")));
-				deleteProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
-				showProductsButton.setBounds(10, 263, 199, 40);
-				decorateProductPanel.add(showProductsButton);
-				showProductsButton.setFocusable(false);
-				//		updateProductButton.addActionListener(productListener);
-						showProductsButton.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mousePressed(MouseEvent e) {
-								tabbedPane.setVisible(false);
-				
-								addstaffpanel.setVisible(false);
-								deletestaffpanel.setVisible(false);
-								updatestaffpanel.setVisible(false);
-								showstaffspanel.setVisible(false);
+		deleteProductButton.setHorizontalAlignment(SwingConstants.LEFT);
+		deleteProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/icons8-delete-30 (2).png")));
+		deleteProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		deleteProductButton.addMouseListener(productListener);
 								
-								addProductPanel.setVisible(false);
-								deleteProductPanel.setVisible(false);
-								showProductsPanel.setVisible(true);
-								updateProductPanel.setVisible(false);
-							}
-						});						
-						showProductsButton.setHorizontalAlignment(SwingConstants.LEFT);
-						showProductsButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/show 30.png")));
-						showProductsButton.setFont(new Font("Roboto", Font.BOLD, 13));
-						updateProductButton.setBounds(10, 331, 199, 40);
-						decorateProductPanel.add(updateProductButton);
-						updateProductButton.setFocusable(false);
-						//		deleteProductButton.addActionListener(productListener);
-								updateProductButton.addMouseListener(new MouseAdapter() {
-									@Override
-									public void mousePressed(MouseEvent e) {
-						                tabbedPane.setVisible(false);
-						                
-										addstaffpanel.setVisible(false);
-										deletestaffpanel.setVisible(false);
-										updatestaffpanel.setVisible(false);
-										showstaffspanel.setVisible(false);
-										
-										addProductPanel.setVisible(false);
-										deleteProductPanel.setVisible(false);
-										showProductsPanel.setVisible(false);
-										updateProductPanel.setVisible(true);
-										
-									}
-								});								
-								updateProductButton.setHorizontalAlignment(SwingConstants.LEFT);
-								updateProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/update 30.png")));
-								updateProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
-								decorateFunctionProductLabel.setHorizontalAlignment(SwingConstants.CENTER);
-								decorateFunctionProductLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/setting 64.png")));
-								decorateFunctionProductLabel.setForeground(new Color(237, 180, 19));
-								decorateFunctionProductLabel.setFont(new Font("Nirmala UI", Font.BOLD, 21));
-								decorateFunctionProductLabel.setBounds(10, 34, 184, 75);
-								
-								decorateProductPanel.add(decorateFunctionProductLabel);
-		addProductButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(true);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
+		showProductsButton.setBounds(10, 263, 199, 40);
+		decorateProductPanel.add(showProductsButton);
+		showProductsButton.setFocusable(false);
+		showProductsButton.setHorizontalAlignment(SwingConstants.LEFT);
+		showProductsButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/show 30.png")));
+		showProductsButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		showProductsButton.addMouseListener(productListener);
 				
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(false);
-				}
-		});
-												
+		updateProductButton.setBounds(10, 331, 199, 40);
+		decorateProductPanel.add(updateProductButton);
+		updateProductButton.setFocusable(false);
+		updateProductButton.setHorizontalAlignment(SwingConstants.LEFT);
+		updateProductButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/update 30.png")));
+		updateProductButton.setFont(new Font("Roboto", Font.BOLD, 13));
+		updateProductButton.addMouseListener(productListener);
+						
+						
+		decorateFunctionProductLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		decorateFunctionProductLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/setting 64.png")));
+		decorateFunctionProductLabel.setForeground(new Color(237, 180, 19));
+		decorateFunctionProductLabel.setFont(new Font("Nirmala UI", Font.BOLD, 21));
+		decorateFunctionProductLabel.setBounds(10, 34, 184, 75);
+		
+		decorateProductPanel.add(decorateFunctionProductLabel);												
+								
+								
+		
+		// STAFF TRÊN TABBEDPANE										
 		JPanel staffTabbedPanel = new JPanel();
 		tabbedPane.addTab("Staff", null, staffTabbedPanel, null);
 		staffTabbedPanel.setLayout(null);
@@ -377,6 +266,8 @@ public class Dashboard extends JFrame {
 		addStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/add 30.png")));
 		addStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		addStaffButton.setForeground(new Color(0, 0, 0));
+		addStaffButton.addMouseListener(staffListener);
+		
 		deleteStaffButton.setHorizontalAlignment(SwingConstants.LEFT);
 		deleteStaffButton.setBounds(10, 146, 203, 39);
 		decorateStaffPanel.add(deleteStaffButton);
@@ -384,10 +275,8 @@ public class Dashboard extends JFrame {
 		deleteStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/icons8-delete-30 (2).png")));
 		deleteStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		deleteStaffButton.setForeground(new Color(0, 0, 0));
-		updateStaffButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		deleteStaffButton.addMouseListener(staffListener);
+		
 		updateStaffButton.setHorizontalAlignment(SwingConstants.LEFT);
 		updateStaffButton.setBounds(10, 207, 203, 39);
 		decorateStaffPanel.add(updateStaffButton);
@@ -395,6 +284,8 @@ public class Dashboard extends JFrame {
 		updateStaffButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/update 30.png")));
 		updateStaffButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		updateStaffButton.setForeground(new Color(0, 0, 0));
+		updateStaffButton.addMouseListener(staffListener);
+		
 		showStaffsButton.setHorizontalAlignment(SwingConstants.LEFT);
 		showStaffsButton.setBounds(10, 266, 203, 39);
 		decorateStaffPanel.add(showStaffsButton);
@@ -402,6 +293,8 @@ public class Dashboard extends JFrame {
 		showStaffsButton.setIcon(new ImageIcon(Dashboard.class.getResource("/image/show 30.png")));
 		showStaffsButton.setFont(new Font("Roboto", Font.BOLD, 13));
 		showStaffsButton.setForeground(new Color(0, 0, 0));
+		showStaffsButton.addMouseListener(staffListener);
+		
 		decorateFunctionStaffLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		decorateFunctionStaffLabel.setFont(new Font("Nirmala UI", Font.BOLD, 22));
 		decorateFunctionStaffLabel.setIcon(new ImageIcon(Dashboard.class.getResource("/image/setting 64.png")));
@@ -409,96 +302,16 @@ public class Dashboard extends JFrame {
 		
 		decorateStaffPanel.add(decorateFunctionStaffLabel);
 		
-		
-		showStaffsButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(true);
-				
-			}
-		});
-		
-		updateStaffButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-			
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-				updatestaffpanel.setVisible(true);
-				showstaffspanel.setVisible(false);
-			}
-		});
-		//		showProductsButton.addActionListener(productListener);
-				
-				
-		// set event listener cho vung staff panel
-		
-		deleteStaffButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				addstaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(true);
-				updatestaffpanel.setVisible(false);
-				showstaffspanel.setVisible(false);
-			}
-		});		
-				
-		addStaffButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				tabbedPane.setVisible(false);
-				addProductPanel.setVisible(false);
-				deleteProductPanel.setVisible(false);
-				updateProductPanel.setVisible(false);
-				showProductsPanel.setVisible(false);
-				
-				updatestaffpanel.setVisible(false);
-				deletestaffpanel.setVisible(false);
-			    showstaffspanel.setVisible(false);
-			    addstaffpanel.setVisible(true);
-			    
-				
-			}
-		});
-		
-		
-				
-				
-						
-		
-		
-		
-		
-		
-		
+		// ORDER TRÊN TABBEDPANE
 		JPanel orderTabbedPanell = new JPanel();
 		orderTabbedPanell.setForeground(new Color(102, 51, 204));
 		tabbedPane.addTab("Order", null, orderTabbedPanell, null);
 		
 		
+				
 		
-		
-		
+				
+//------------------------ thêm thành phần vào FRAME---------------------------				
 		contentPane.add(functionPanel);
 		contentPane.add(titlePanel);
 		contentPane.add(tabbedPane);
@@ -506,14 +319,12 @@ public class Dashboard extends JFrame {
 		contentPane.add(deleteProductPanel);
 		contentPane.add(updateProductPanel);
 		contentPane.add(showProductsPanel);
-		
 		contentPane.add(addstaffpanel);
-
-	
 		contentPane.add(deletestaffpanel);
 		contentPane.add(updatestaffpanel);
 	    contentPane.add(showstaffspanel);
-		
+	    
+		//lúc khởi động ctrinh phải tắt các panel này
 		addProductPanel.setVisible(false);
 		deleteProductPanel.setVisible(false);
 		showProductsPanel.setVisible(false);
@@ -523,10 +334,10 @@ public class Dashboard extends JFrame {
 		updatestaffpanel.setVisible(false);
 		showstaffspanel.setVisible(false);
 		
-		
-		
-		
-	}
+}
+	
+	
+//----------------------------------Phần hàm cho Listener-----------------------------	
 	// chức năng bấm bảng chức năng tổng
 	public void pressHomeLabel() {
 		this.tabbedPane.setSelectedIndex(0);
@@ -536,7 +347,7 @@ public class Dashboard extends JFrame {
 		this.orderLabel.setBackground(new Color(46,45,41));
 		
 	    tabbedPane.setVisible(true);
-		
+	   
 	    updatestaffpanel.setVisible(false);
 	    deletestaffpanel.setVisible(false);
 	    showstaffspanel.setVisible(false);
@@ -554,8 +365,7 @@ public class Dashboard extends JFrame {
 		this.staffLabel.setBackground(new Color(46,45,41));
 		this.orderLabel.setBackground(new Color(46,45,41));
 		
-		
-	    tabbedPane.setVisible(true);
+		tabbedPane.setVisible(true);
 		
 		updatestaffpanel.setVisible(false);
 	    deletestaffpanel.setVisible(false);
@@ -574,8 +384,7 @@ public class Dashboard extends JFrame {
 		this.staffLabel.setBackground(new Color(252, 186, 3));
 		this.orderLabel.setBackground(new Color(46,45,41));
 		
-		
-	    tabbedPane.setVisible(true);
+		tabbedPane.setVisible(true);
 		
 		updatestaffpanel.setVisible(false);
 	    deletestaffpanel.setVisible(false);
@@ -594,8 +403,7 @@ public class Dashboard extends JFrame {
 		this.staffLabel.setBackground(new Color(46,45,41));
 		this.orderLabel.setBackground(new Color(252, 186, 3));
 		
-		
-	    tabbedPane.setVisible(true);
+		tabbedPane.setVisible(true);
 		
 		updatestaffpanel.setVisible(false);
 	    deletestaffpanel.setVisible(false);
@@ -608,43 +416,107 @@ public class Dashboard extends JFrame {
 	    showProductsPanel.setVisible(false);}
 		
 	
-	
-	
-	
-	
 	//chức năng bấm bảng product
-	public void clickAddProductButton() {
+	public void pressAddProductButton() {
 		tabbedPane.setVisible(false);
-		addProductPanel.setVisible(true);
-		deleteProductPanel.setVisible(false);
-		updateProductPanel.setVisible(false);
-		showProductsPanel.setVisible(false);
-		
-		
-	}
-	public void clickDeleteProductButton() {
+        addProductPanel.setVisible(true);
+        deleteProductPanel.setVisible(false);
+        updateProductPanel.setVisible(false);
+        showProductsPanel.setVisible(false);
+        
+        addstaffpanel.setVisible(false);
+        deletestaffpanel.setVisible(false);
+        showstaffspanel.setVisible(false);
+        updatestaffpanel.setVisible(false);
+    }
+	
+	public void pressDeleteProductButton() {
 		tabbedPane.setVisible(false);
 		deleteProductPanel.setVisible(true);
 		addProductPanel.setVisible(false);
 		updateProductPanel.setVisible(false);
 		showProductsPanel.setVisible(false);
-	}
-	public void clickShowProductsButton() {
 		
+		addstaffpanel.setVisible(false);
+        deletestaffpanel.setVisible(false);
+        showstaffspanel.setVisible(false);
+        updatestaffpanel.setVisible(false);
+	}
+	public void pressShowProductsButton() {
+		ShowProductsPanel.pressShowProductsButtonInHome();
 		tabbedPane.setVisible(false);
 		showProductsPanel.setVisible(true);
 		addProductPanel.setVisible(false);
 		updateProductPanel.setVisible(false);
 		deleteProductPanel.setVisible(false);
+		
+		addstaffpanel.setVisible(false);
+        deletestaffpanel.setVisible(false);
+        showstaffspanel.setVisible(false);
+        updatestaffpanel.setVisible(false);
 	}
-	public void clickUpdateProductButton() {
+	public void pressUpdateProductButton() {
 		tabbedPane.setVisible(false);
 		updateProductPanel.setVisible(true);
 		addProductPanel.setVisible(false);
 		deleteProductPanel.setVisible(false);
 		showProductsPanel.setVisible(false);
+		
+		addstaffpanel.setVisible(false);
+        deletestaffpanel.setVisible(false);
+        showstaffspanel.setVisible(false);
+        updatestaffpanel.setVisible(false);
 	}
 	
+	//chức năng bấm bảng Staff
+	public void pressAddStaffButton() {
+		tabbedPane.setVisible(false);
+		addProductPanel.setVisible(false);
+		deleteProductPanel.setVisible(false);
+		updateProductPanel.setVisible(false);
+		showProductsPanel.setVisible(false);
+	
+		addstaffpanel.setVisible(true);
+		deletestaffpanel.setVisible(false);
+		updatestaffpanel.setVisible(false);
+		showstaffspanel.setVisible(false);
+	}
+	public void pressDeleteStaffButton() {
+		tabbedPane.setVisible(false);
+		addProductPanel.setVisible(false);
+		deleteProductPanel.setVisible(false);
+		updateProductPanel.setVisible(false);
+		showProductsPanel.setVisible(false);
+	
+		addstaffpanel.setVisible(false);
+		deletestaffpanel.setVisible(true);
+		updatestaffpanel.setVisible(false);
+		showstaffspanel.setVisible(false);
+	}
+	public void pressShowStaffButton(){
+		tabbedPane.setVisible(false);
+		addProductPanel.setVisible(false);
+		deleteProductPanel.setVisible(false);
+		updateProductPanel.setVisible(false);
+		showProductsPanel.setVisible(false);
+	
+		addstaffpanel.setVisible(false);
+		deletestaffpanel.setVisible(false);
+		updatestaffpanel.setVisible(false);
+		showstaffspanel.setVisible(true);
+	}
+	public void pressUpdateStaffButton() {
+		tabbedPane.setVisible(false);
+		addProductPanel.setVisible(false);
+		deleteProductPanel.setVisible(false);
+		updateProductPanel.setVisible(false);
+		showProductsPanel.setVisible(false);
+	
+		addstaffpanel.setVisible(false);
+		deletestaffpanel.setVisible(false);
+		updatestaffpanel.setVisible(true);
+		showstaffspanel.setVisible(false);
+	}
 	
 	//product
 	public static void clickClosebutton() {
